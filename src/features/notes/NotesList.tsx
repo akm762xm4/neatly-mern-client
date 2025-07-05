@@ -1,14 +1,14 @@
-import { useState } from "react"
-import { useGetNotesQuery } from "../api/notesApi"
-import NoteItem from "../item/NoteItem"
-import { GrAdd } from "react-icons/gr"
-import { Modal } from "../../../Components/Modal"
-import { AddNote } from "../form/AddNote"
-import { Loader } from "../../../Components/Loader"
+import { useState } from "react";
+import { useGetNotesQuery } from "./notesApi";
+import NoteItem from "./NoteItem";
+import { GrAdd } from "react-icons/gr";
+import { Modal } from "../../Components/Modal";
+import { AddNote } from "./AddNote";
+import { Loader } from "../../Components/Loader";
 
 const NotesList = () => {
-  const { data: notes, isLoading, isFetching } = useGetNotesQuery()
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { data: notes, isLoading, isFetching } = useGetNotesQuery();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-2 z-20 pt-16">
@@ -32,6 +32,6 @@ const NotesList = () => {
       )}
       {(isLoading || isFetching) && <Loader />}
     </>
-  )
-}
-export default NotesList
+  );
+};
+export default NotesList;

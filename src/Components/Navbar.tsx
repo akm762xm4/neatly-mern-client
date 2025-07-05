@@ -1,34 +1,31 @@
-import { CgNotes } from "react-icons/cg"
-import { Modal } from "./Modal"
-import { Signin } from "../features/user/forms/Signin"
-import { Signup } from "../features/user/forms/Signup"
-import { removeItemFromLocalStorage } from "../utils/localStorageUtils"
-import {
-  useLoginModal,
-  useSignUpModal,
-} from "../features/user/hooks/modalState"
-import { useGetMeQuery } from "../features/user/api/usersApi"
+import { CgNotes } from "react-icons/cg";
+import { Modal } from "./Modal";
+import { Signin } from "../features/user/Signin";
+import { Signup } from "../features/user/Signup";
+import { removeItemFromLocalStorage } from "../utils/localStorageUtils";
+import { useLoginModal, useSignUpModal } from "../features/user/modalState";
+import { useGetMeQuery } from "../features/user/usersApi";
 
 export const Navbar = () => {
-  const token = localStorage.getItem("token")
-  const { data: user } = useGetMeQuery()
+  const token = localStorage.getItem("token");
+  const { data: user } = useGetMeQuery();
 
-  const loginModal = useLoginModal()
-  const signUpModal = useSignUpModal()
+  const loginModal = useLoginModal();
+  const signUpModal = useSignUpModal();
 
   const handleSignInClick = () => {
     if (signUpModal.isOpen) {
-      signUpModal.setIsOpen(false)
+      signUpModal.setIsOpen(false);
     }
-    loginModal.setIsOpen(true)
-  }
+    loginModal.setIsOpen(true);
+  };
 
   const handleSignUpClick = () => {
     if (loginModal.isOpen) {
-      loginModal.setIsOpen(false)
+      loginModal.setIsOpen(false);
     }
-    signUpModal.setIsOpen(true)
-  }
+    signUpModal.setIsOpen(true);
+  };
 
   return (
     <>
@@ -83,5 +80,5 @@ export const Navbar = () => {
         />
       )}
     </>
-  )
-}
+  );
+};

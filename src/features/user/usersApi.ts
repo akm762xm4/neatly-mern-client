@@ -1,11 +1,6 @@
-import { api } from "../../../app/server-api"
-import {
-  SignUpAndLogin,
-  SignupCredentials,
-  LoginCredentials,
-  User,
-} from "../types"
-const token = localStorage.getItem("token")
+import { api } from "../../app/server-api";
+import { SignUpAndLogin, SignupCredentials, LoginCredentials, User } from ".";
+const token = localStorage.getItem("token");
 
 export const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -35,6 +30,6 @@ export const usersApi = api.injectEndpoints({
       providesTags: ["user"],
     }),
   }),
-})
+});
 
-export const { useSignUpMutation, useSignInMutation, useGetMeQuery } = usersApi
+export const { useSignUpMutation, useSignInMutation, useGetMeQuery } = usersApi;

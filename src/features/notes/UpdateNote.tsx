@@ -1,26 +1,26 @@
-import { useEffect } from "react"
-import { useForm, SubmitHandler } from "react-hook-form"
-import { AddNote, Note } from "../types"
-import { useUpdateNoteMutation } from "../api/notesApi"
+import { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { AddNote, Note } from ".";
+import { useUpdateNoteMutation } from "./notesApi";
 
 interface UpdateNoteProps {
-  note: Note
-  setIsOpen: (value: boolean) => void
+  note: Note;
+  setIsOpen: (value: boolean) => void;
 }
 
 export const UpdateNote: React.FC<UpdateNoteProps> = ({ note, setIsOpen }) => {
-  const { register, handleSubmit, setValue } = useForm<AddNote>()
-  const [updateTodo] = useUpdateNoteMutation()
+  const { register, handleSubmit, setValue } = useForm<AddNote>();
+  const [updateTodo] = useUpdateNoteMutation();
 
   const onSubmit: SubmitHandler<AddNote> = (data) => {
-    updateTodo({ _id: note._id, patch: data })
-    setIsOpen(false)
-  }
+    updateTodo({ _id: note._id, patch: data });
+    setIsOpen(false);
+  };
 
   useEffect(() => {
-    setValue("title", note.title)
-    setValue("text", note.text)
-  }, [note, setValue])
+    setValue("title", note.title);
+    setValue("text", note.text);
+  }, [note, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -56,5 +56,5 @@ export const UpdateNote: React.FC<UpdateNoteProps> = ({ note, setIsOpen }) => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};

@@ -1,24 +1,24 @@
-import { useState } from "react"
-import { Note } from "../types"
-import { FiEdit } from "react-icons/fi"
-import { AiFillDelete } from "react-icons/ai"
-import { Modal } from "../../../Components/Modal"
-import { UpdateNote } from "../form/UpdateNote"
-import { useDeleteNoteMutation } from "../api/notesApi"
-import { formatDate } from "../../../utils/formatDate"
+import { useState } from "react";
+import { Note } from ".";
+import { FiEdit } from "react-icons/fi";
+import { AiFillDelete } from "react-icons/ai";
+import { Modal } from "../../Components/Modal";
+import { UpdateNote } from "./UpdateNote";
+import { useDeleteNoteMutation } from "./notesApi";
+import { formatDate } from "../../utils/formatDate";
 
 interface NoteItemProps {
-  note: Note
+  note: Note;
 }
 const NoteItem: React.FC<NoteItemProps> = ({ note }) => {
-  const [deleteNote] = useDeleteNoteMutation()
-  const [isOpen, setIsOpen] = useState(false)
-  const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [deleteNote] = useDeleteNoteMutation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleDelete = () => {
-    deleteNote(note._id)
-    setIsAlertOpen(false)
-  }
+    deleteNote(note._id);
+    setIsAlertOpen(false);
+  };
 
   return (
     <>
@@ -63,6 +63,6 @@ const NoteItem: React.FC<NoteItemProps> = ({ note }) => {
         />
       )}
     </>
-  )
-}
-export default NoteItem
+  );
+};
+export default NoteItem;

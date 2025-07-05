@@ -1,24 +1,24 @@
-import { useForm, SubmitHandler } from "react-hook-form"
-import { SignupCredentials } from "../types"
-import { useSignUpMutation } from "../api/usersApi"
-import { addItemToLocalStorage } from "../../../utils/localStorageUtils"
+import { useForm, SubmitHandler } from "react-hook-form";
+import { SignupCredentials } from ".";
+import { useSignUpMutation } from "./usersApi";
+import { addItemToLocalStorage } from "../../utils/localStorageUtils";
 
 interface SignupProps {
-  setIsOpen: (value: boolean) => void
+  setIsOpen: (value: boolean) => void;
 }
 export const Signup: React.FC<SignupProps> = ({ setIsOpen }) => {
-  const [signUp] = useSignUpMutation()
-  const { register, handleSubmit } = useForm<SignupCredentials>()
+  const [signUp] = useSignUpMutation();
+  const { register, handleSubmit } = useForm<SignupCredentials>();
 
   const onSubmit: SubmitHandler<SignupCredentials> = (data) => {
     signUp(data)
       .unwrap()
       .then((res) => {
-        console.log("Response::", res)
-        addItemToLocalStorage("token", res.token)
-      })
-    setIsOpen(false)
-  }
+        console.log("Response::", res);
+        addItemToLocalStorage("token", res.token);
+      });
+    setIsOpen(false);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -66,5 +66,5 @@ export const Signup: React.FC<SignupProps> = ({ setIsOpen }) => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};

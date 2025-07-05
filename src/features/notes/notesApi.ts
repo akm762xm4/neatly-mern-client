@@ -1,7 +1,7 @@
-import { api } from "../../../app/server-api"
-import { AddNote, Note, UpdateNoteQueryProps } from "../types"
+import { api } from "../../app/server-api";
+import { AddNote, Note, UpdateNoteQueryProps } from ".";
 
-const token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
 
 const notesApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -56,7 +56,7 @@ const notesApi = api.injectEndpoints({
       invalidatesTags: ["note"],
     }),
   }),
-})
+});
 
 export const {
   useGetNotesQuery,
@@ -64,4 +64,4 @@ export const {
   useAddNoteMutation,
   useUpdateNoteMutation,
   useDeleteNoteMutation,
-} = notesApi
+} = notesApi;

@@ -1,20 +1,20 @@
-import { useForm, SubmitHandler } from "react-hook-form"
-import { useAddNoteMutation } from "../api/notesApi"
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useAddNoteMutation } from "./notesApi";
 interface AddNote {
-  title: string
-  text?: string
+  title: string;
+  text?: string;
 }
 
 interface AddNoteProps {
-  setIsOpen: (value: boolean) => void
+  setIsOpen: (value: boolean) => void;
 }
 export const AddNote: React.FC<AddNoteProps> = ({ setIsOpen }) => {
-  const [addNote] = useAddNoteMutation()
-  const { register, handleSubmit } = useForm<AddNote>()
+  const [addNote] = useAddNoteMutation();
+  const { register, handleSubmit } = useForm<AddNote>();
   const onSubmit: SubmitHandler<AddNote> = (data) => {
-    addNote(data)
-    setIsOpen(false)
-  }
+    addNote(data);
+    setIsOpen(false);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -50,5 +50,5 @@ export const AddNote: React.FC<AddNoteProps> = ({ setIsOpen }) => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};

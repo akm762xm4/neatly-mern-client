@@ -1,24 +1,21 @@
-import {
-  useLoginModal,
-  useSignUpModal,
-} from "../features/user/hooks/modalState"
+import { useLoginModal, useSignUpModal } from "../features/user/modalState";
 export const Unauthorized = () => {
-  const loginModal = useLoginModal()
-  const signUpModal = useSignUpModal()
+  const loginModal = useLoginModal();
+  const signUpModal = useSignUpModal();
 
   const handleLoginClick = () => {
     if (signUpModal.isOpen) {
-      signUpModal.setIsOpen(false)
+      signUpModal.setIsOpen(false);
     }
-    loginModal.setIsOpen(true)
-  }
+    loginModal.setIsOpen(true);
+  };
 
   const handleSignUpClick = () => {
     if (loginModal.isOpen) {
-      loginModal.setIsOpen(false)
+      loginModal.setIsOpen(false);
     }
-    signUpModal.setIsOpen(true)
-  }
+    signUpModal.setIsOpen(true);
+  };
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-center md:text-3xl">
       You must have to{" "}
@@ -39,5 +36,5 @@ export const Unauthorized = () => {
       </button>{" "}
       an account!
     </div>
-  )
-}
+  );
+};
