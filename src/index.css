@@ -1,14 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "react-calendar/dist/Calendar.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
-    font-family: 'Poppins', sans-serif;
+
+/* Global font */
+* {
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
-/*Color Pallette:
-1: #6B9080
-2: #A4C3B2
-3: #CCE3DE
-4: #EAF4F4
-5: #F6FFF8
-*/
+
+@layer base {
+  .btn-primary {
+    @apply btn bg-accent text-white hover:bg-blue-800 dark:bg-dark-accent dark:hover:bg-sky-500 dark:text-dark-bg;
+  }
+  .btn-secondary {
+    @apply btn bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-dark-muted dark:text-gray-100 dark:hover:bg-slate-700;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-500 text-white hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600;
+  }
+  /* Card styles */
+  .card {
+    @apply bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text border border-light-border dark:border-dark-border shadow-card rounded-default p-4;
+  }
+  .text-subtitle {
+    @apply text-base text-light-muted dark:text-dark-muted;
+  }
+  /* Padding & Margin */
+  .p-container {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-6 md:py-10;
+  }
+
+  /* Shadows */
+  .shadow-card {
+    @apply shadow-md hover:shadow-lg transition-shadow;
+  }
+
+  /* Rounded Corners */
+  .rounded-default {
+    @apply rounded-xl;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  /* Text sizes */
+  .text-title {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+
+  /* Centering utility */
+  .center-content {
+    @apply flex items-center justify-center;
+  }
+
+  /* Disabled state */
+  .btn-disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+/* Sonner Toast Color Overrides for Light */
+:root {
+  --toast-bg: #ffffff;
+  --toast-text: #1f2937; /* light-text */
+  --toast-border: #d1d5db; /* light-border */
+  --toast-accent: #1d4ed8; /* accent */
+  --toast-success: #22c55e;
+  --toast-danger: #ef4444;
+  --toast-warning: #facc15;
+}
+
+/* Sonner Toast Color Overrides for Dark */
+.dark {
+  --toast-bg: #1e293b; /* dark-card */
+  --toast-text: #f8fafc; /* dark-text */
+  --toast-border: #334155; /* dark-border */
+  --toast-accent: #38bdf8; /* dark-accent */
+  --toast-success: #22c55e;
+  --toast-danger: #ef4444;
+  --toast-warning: #facc15;
+}

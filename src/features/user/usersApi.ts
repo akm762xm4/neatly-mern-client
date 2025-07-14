@@ -1,6 +1,5 @@
 import { api } from "../../app/server-api";
 import { SignUpAndLogin, SignupCredentials, LoginCredentials, User } from ".";
-const token = localStorage.getItem("token");
 
 export const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,7 +9,7 @@ export const usersApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["user"],
+      invalidatesTags: ["User"],
     }),
     signIn: builder.mutation<SignUpAndLogin, LoginCredentials>({
       query: (body) => ({
@@ -18,16 +17,13 @@ export const usersApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["user"],
+      invalidatesTags: ["User"],
     }),
     getMe: builder.query<User, void>({
       query: () => ({
         url: "/api/users/",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
-      providesTags: ["user"],
+      providesTags: ["User"],
     }),
   }),
 });

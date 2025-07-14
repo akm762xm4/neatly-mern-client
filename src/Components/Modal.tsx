@@ -1,52 +1,99 @@
-import { useEffect } from "react"
-import { AiOutlineClose } from "react-icons/ai"
-import * as ReactDOM from "react-dom"
-interface AddModalProps {
-  title: string
-  isOpen?: boolean
-  setIsOpen: (value: boolean) => void
-  child: React.ReactNode
-  deleteHandler?: () => void
+import { useEffect } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import * as ReactDOM from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "./ui/Button";
+
+interface ModalProps {
+  title: string;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  child: React.ReactNode;
+  deleteHandler?: () => void;
+  deleteButtonText?: string;
+  isDeleting?: boolean;
 }
-export const Modal: React.FC<AddModalProps> = ({
+
+export const Modal: React.FC<ModalProps> = ({
   title,
-  // isOpen,
+  isOpen,
   setIsOpen,
   child,
   deleteHandler,
+  deleteButtonText = "Delete",
+  isDeleting = false,
 }) => {
   useEffect(() => {
-    document.body.style.overflowY = "hidden"
+    if (isOpen) document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflowY = "scroll"
-    }
-  })
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  const portalDiv = document.querySelector(".portalModalDiv") as HTMLDivElement;
+  if (!portalDiv) return null;
+
   return ReactDOM.createPortal(
-    <>
-      <div
-        onClick={() => setIsOpen(false)}
-        className="fixed top-0 right-0 left-0 bottom-0 bg-gray-300/70"
-      ></div>
-      <div className="shadow-lg shadow-gray-500 fixed flex flex-col justify-center items-center min-w-[20rem] md:min-w-[30rem] max-w-[20rem] md:max-w-[30rem] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#6B9080] p-10 rounded backdrop-blur gap-2">
-        <button
-          title="Close"
-          className="absolute right-2.5 top-2.5 p-2 text-[1rem] border-none rounded-[0.3rem] bg-[#F6FFF8]"
-          onClick={() => setIsOpen(false)}
-        >
-          <AiOutlineClose size={18} />
-        </button>
-        <div className="text-3xl font-semibold">{title}</div>
-        {child}
-        {deleteHandler && (
-          <button
-            className="rounded px-2 select-none bg-[#EAF4F4]"
-            onClick={deleteHandler}
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            key="backdrop"
+            className="fixed inset-0 z-40 bg-black/30 dark:bg-black/50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Modal Content */}
+          <motion.div
+            key="modal"
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              transition: { type: "spring", stiffness: 300, damping: 25 },
+            }}
+            exit={{ opacity: 0, scale: 0.6, transition: { duration: 0.2 } }}
           >
-            Delete
-          </button>
-        )}
-      </div>
-    </>,
-    document.querySelector(".portalModalDiv") as HTMLDivElement
-  )
-}
+            <div className="relative flex flex-col w-full max-w-lg p-4 rounded-xl bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-card">
+              {/* Close Button */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="absolute top-4 right-4 text-light-muted dark:text-dark-muted hover:text-light-text dark:hover:text-dark-text transition"
+                title="Close Modal"
+              >
+                <AiOutlineClose size={24} />
+              </button>
+
+              {/* Title */}
+              <h2 className="text-title py-4  px-6">{title}</h2>
+
+              {/* Content */}
+              <div>{child}</div>
+
+              {/* Delete Action */}
+              {deleteHandler && (
+                <div className="mt-6 flex justify-end">
+                  <Button
+                    disabled={isDeleting}
+                    variant="danger"
+                    onClick={deleteHandler}
+                  >
+                    {isDeleting && isDeleting === true
+                      ? " Deleting..."
+                      : deleteButtonText}
+                  </Button>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>,
+    portalDiv
+  );
+};
