@@ -6,7 +6,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 
-const baseUrl = "https://notes-mern-server.vercel.app/";
+const baseUrl = "https://neatly-mern-server.vercel.app/";
 // const baseUrl = "http://localhost:5000";
 
 const baseQuery = fetchBaseQuery({

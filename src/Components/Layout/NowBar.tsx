@@ -116,7 +116,11 @@ export const NowBar = () => {
           title="Confirm Logout"
           isOpen={isLogoutConfirmOpen}
           setIsOpen={setIsLogoutConfirmOpen}
-          child={<p className="px-6">Are you sure you want to log out?</p>}
+          child={
+            <p className="md:px-6 px-3 md:text-base text-sm">
+              Are you sure you want to log out?
+            </p>
+          }
           deleteHandler={handleLogout}
           deleteButtonText="Logout"
         />

@@ -53,7 +53,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ setIsOpen, task }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <div className="flex flex-col gap-4 px-4 py-2">
+      <div className="flex flex-col gap-4 md:px-4 md:py-2">
         {/* Title */}
         <div className="flex flex-col gap-1">
           <label

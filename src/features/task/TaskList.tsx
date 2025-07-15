@@ -3,7 +3,7 @@ import { useGetTasksQuery } from "./taskApi";
 import TaskItem from "./TaskItem";
 import { Modal } from "../../Components/Modal";
 import { TaskForm } from "./TaskForm";
-import { Plus, Search } from "lucide-react";
+import { Plus, Search, X } from "lucide-react";
 import { Input } from "../../Components/ui/Input";
 import SkeletonTaskCard from "./SkeletonTaskCard";
 import PageHeader from "../../Components/PageHeader";
@@ -49,13 +49,18 @@ const TaskList = () => {
 
         {/* 🔍 Search */}
         <div className="relative w-full sm:w-72 ml-auto">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5 z-10" />
           <Input
             id="task-search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search tasks..."
             className="pl-10"
+          />
+          <X
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5 cursor-pointer"
+            onClick={() => setSearchTerm("")}
+            style={{ display: searchTerm ? "block" : "none" }}
           />
         </div>
 

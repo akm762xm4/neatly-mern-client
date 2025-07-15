@@ -58,7 +58,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <div className="space-y-5 p-4 w-full">
+      <div className="space-y-5 md:p-4 w-full">
         {/* Title Field */}
         <div className="flex flex-col gap-1">
           <label

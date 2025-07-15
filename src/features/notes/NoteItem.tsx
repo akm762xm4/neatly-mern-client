@@ -107,7 +107,7 @@ const NoteItem: React.FC<NoteItemProps> = ({ note }) => {
           isOpen={isAlertOpen}
           setIsOpen={setIsAlertOpen}
           child={
-            <div className="px-6">
+            <div className="md:px-6 px-3 md:text-base text-sm">
               Are you sure you want to delete note “{note.title}”?
             </div>
           }

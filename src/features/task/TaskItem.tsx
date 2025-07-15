@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Modal } from "../../Components/Modal";
 import { TaskForm } from "./TaskForm";
 import { format } from "date-fns";
-import { CheckCircle, Circle, Trash2, Pencil } from "lucide-react";
+import { CheckCircle, Circle, Trash2, Pencil, Calendar } from "lucide-react";
 import { showToast } from "../../Components/ui/Toast";
 
 interface TaskItemProps {
@@ -102,10 +102,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
       </p>
 
       {/* Bottom: Meta Info */}
-      <div className="flex justify-between items-center mt-3 text-xs text-gray-500 dark:text-gray-400">
+      <div className="flex justify-between items-center mt-3 md:text-xs  text-[11px] leading-3 text-gray-500 dark:text-gray-400 ">
         <span>Priority: {task.priority || "N/A"}</span>
-        <span>
-          Created: {format(new Date(task.createdAt), "dd MMM yyyy, hh:mm a")}
+        <span className="flex items-center gap-1">
+          <Calendar className="w-3" />
+          {format(new Date(task.createdAt), "dd MMM yyyy, hh:mm a")}
         </span>
       </div>
 
@@ -126,7 +127,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           isOpen={isAlertOpen}
           setIsOpen={setIsAlertOpen}
           child={
-            <div className="px-6 text-sm">
+            <div className="md:px-6 px-3 md:text-base text-sm">
               Are you sure you want to delete the task “{task.title}”?
             </div>
           }

@@ -2,7 +2,7 @@ import Skeleton from "../../Components/ui/Skeleton";
 
 const OverviewSkeleton = () => {
   return (
-    <div className="space-y-6">
+    <div className="md:mt-0 mt-12 space-y-6">
       {/* Welcome Header */}
       <div className="flex ">
         <Skeleton className="h-10 w-3/4" />
@@ -10,21 +10,21 @@ const OverviewSkeleton = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {Array.from({ length: 2 }).map((_, idx) => (
           <Skeleton key={idx} className="h-20" />
         ))}
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-3 gap-4 py-8 ">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4 py-8 ">
         {Array.from({ length: 3 }).map((_, idx) => (
           <Skeleton key={idx} className="h-16" />
         ))}
       </div>
 
       {/* Task Calendar + Quick Actions */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
         {/* Calendar Box */}
         <Skeleton className="h-[350px]" />
 

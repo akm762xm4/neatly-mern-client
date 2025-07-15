@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/Button";
 import { showToast } from "./ui/Toast";
+import Logo from "../assets/Neatly_Logo.png";
 
 type FormData = {
   username: string;
@@ -71,15 +72,15 @@ const AuthPage = () => {
 
   return (
     <div className="min-h-screen flex bg-light dark:bg-dark-bg items-center justify-center">
-      <div className="w-full max-w-md card p-6">
+      <div className=" card md:p-6 p-4">
         {/* Logo Icon */}
         <div className="flex pb-4 mb-4 items-center gap-2">
           <img
-            src="./src/assets/Neatly_Logo.png"
+            src={Logo}
             alt="./src/assets/Neatly_Logo.png"
-            className="w-12 h-12"
+            className="md:w-12 md:h-12 w-10 h-10"
           />
-          <span className="text-2xl">Neatly</span>
+          <span className="md:text-2xl text-xl">Neatly</span>
           <button
             title={`Switch to ${theme === "light" ? "Dark" : "Light"} mode`}
             onClick={handleThemeToggle}
@@ -90,10 +91,10 @@ const AuthPage = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-xl font-bold  text-light-text dark:text-dark-text mb-1">
+        <h2 className="md:text-xl text-md font-bold  text-light-text dark:text-dark-text mb-1">
           {isLogin ? "Sign in with username" : "Create an account"}
         </h2>
-        <p className="text-sm  text-light-muted dark:text-dark-muted mb-8">
+        <p className="md:text-md text-sm  text-light-muted dark:text-dark-muted mb-8">
           {isLogin
             ? "Access your notes and tasks in one place."
             : "Join Neatly and take charge of your productivity."}

@@ -55,7 +55,7 @@ const OverviewPage = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-4 px-1 py-2 mb-4">
+      <div className="flex items-center justify-between gap-4 px-1 py-2 mb-4 md:mt-0 mt-12">
         <div>
           <h1 className="text-2xl font-bold text-light-text dark:text-dark-text">
             Welcome back, {data?.user?.username || "Guest"} 👋
@@ -123,7 +123,7 @@ const OverviewPage = () => {
         </div>
 
         {/* 🔸 Tasks Summary Section */}
-        <h2 className="text-2xl font-semibold text-light-text dark:text-dark-text px-1 mb-4">
+        <h2 className="md:text-2xl text-xl font-semibold text-light-text dark:text-dark-text px-1 mb-4">
           Tasks Summary
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
@@ -135,10 +135,10 @@ const OverviewPage = () => {
               </span>
             </div>
             <div>
-              <p className="text-xl font-bold text-light-text dark:text-dark-text">
+              <p className="md:text-xl text-lg font-bold text-light-text dark:text-dark-text">
                 {data?.tasks.completed}
               </p>
-              <p className="text-sm text-light-muted dark:text-dark-muted">
+              <p className="md:text-sm text-xs text-light-muted dark:text-dark-muted">
                 Completed
               </p>
             </div>
@@ -152,10 +152,10 @@ const OverviewPage = () => {
               </span>
             </div>
             <div>
-              <p className="text-xl font-bold text-light-text dark:text-dark-text">
+              <p className="md:text-xl text-lg font-bold text-light-text dark:text-dark-text">
                 {data?.tasks.pending}
               </p>
-              <p className="text-sm text-light-muted dark:text-dark-muted">
+              <p className="md:text-sm text-xs text-light-muted dark:text-dark-muted">
                 Pending
               </p>
             </div>
@@ -167,10 +167,10 @@ const OverviewPage = () => {
               <span className="text-red-600 dark:text-red-300 text-xl">🔥</span>
             </div>
             <div>
-              <p className="text-xl font-bold text-light-text dark:text-dark-text">
+              <p className="md:text-xl text-lg font-bold text-light-text dark:text-dark-text">
                 {data?.tasks.dueDates.length}
               </p>
-              <p className="text-sm text-light-muted dark:text-dark-muted">
+              <p className="md:text-sm text-xs text-light-muted dark:text-dark-muted">
                 Overdue
               </p>
             </div>
@@ -205,17 +205,17 @@ const OverviewPage = () => {
             <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => setIsAddNoteOpen(true)}
-                className="bg-light-bg dark:bg-dark-bg rounded-xl p-4 flex flex-col shadow hover:shadow-md  items-center justify-center quick-action-btn h-32 bg-light-bg dark:bg-dark-bg hover:scale-105 transition text-light-muted dark:text-dark-muted"
+                className="md:text-base text-sm rounded-xl p-4 flex flex-col shadow hover:shadow-md  items-center justify-center quick-action-btn h-32 bg-light-bg dark:bg-dark-bg hover:scale-105 transition text-light-muted dark:text-dark-muted"
               >
-                <Plus className="w-10 h-10 text-accent dark:text-dark-accent" />
+                <Plus className="md:w-10 md:h-10 w-8 h-8 text-accent dark:text-dark-accent" />
                 Add Note
               </button>
 
               <button
                 onClick={() => setIsAddTaskOpen(true)}
-                className="bg-light-bg dark:bg-dark-bg rounded-xl p-4 flex flex-col shadow hover:shadow-md  items-center justify-center quick-action-btn h-32 bg-light-bg dark:bg-dark-bg hover:scale-105 transition text-light-muted dark:text-dark-muted"
+                className="md:text-base text-sm rounded-xl p-4 flex flex-col shadow hover:shadow-md  items-center justify-center quick-action-btn h-32 bg-light-bg dark:bg-dark-bg hover:scale-105 transition text-light-muted dark:text-dark-muted"
               >
-                <Plus className="w-10 h-10 text-accent dark:text-dark-accent" />
+                <Plus className="md:w-10 md:h-10 w-8 h-8 text-accent dark:text-dark-accent" />
                 Add Task
               </button>
             </div>
@@ -223,28 +223,28 @@ const OverviewPage = () => {
             {/* 🔸 Redesigned Bottom Buttons - Dual Cards (Theme + Navigation) */}
             <div className="grid grid-cols-2 gap-4">
               {/* Toggle Theme Card */}
-              <div className="bg-light-bg dark:bg-dark-bg rounded-xl p-4 flex flex-col justify-between shadow hover:shadow-md transition">
-                <div className="grid grid-cols-2 gap-2 mb-3 p-4 place-items-center">
+              <div className="bg-light-bg dark:bg-dark-bg rounded-xl md:p-4 p-2 flex flex-col justify-between shadow hover:shadow-md transition">
+                <div className="grid grid-cols-2 gap-2 my-3 md:p-4 p-2 place-items-center">
                   <Moon className="w-8 h-8 text-accent dark:text-dark-accent" />
                   <Sun className="w-8 h-8 text-accent dark:text-dark-accent" />
                 </div>
                 <button
                   onClick={handleThemeToggle}
-                  className="w-full py-2 text-center text-sm font-medium text-light-text dark:text-dark-text bg-light-card dark:bg-dark-card rounded-md shadow-sm hover:scale-[1.02] transition"
+                  className="w-full py-2 text-center md:text-sm text-xs font-medium text-light-text dark:text-dark-text bg-light-card dark:bg-dark-card rounded-md shadow-sm hover:scale-[1.02] transition"
                 >
                   Toggle Theme
                 </button>
               </div>
 
               {/* Navigation Card */}
-              <div className="bg-light-bg dark:bg-dark-bg rounded-xl p-4 flex flex-col justify-between shadow hover:shadow-md transition">
-                <div className="text-sm font-semibold text-light-text dark:text-dark-text mb-3">
+              <div className="bg-light-bg dark:bg-dark-bg rounded-xl md:p-4 p-2 flex flex-col justify-between shadow hover:shadow-md transition">
+                <div className="text-sm font-semibold text-light-text dark:text-dark-text mb-3 md:p-0 p-1">
                   Navigate to..
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
                   <button
                     onClick={() => navigate("/notes")}
-                    className="flex items-center justify-center gap-1 py-2 rounded-md bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-sm hover:scale-[1.02] transition text-sm"
+                    className="flex items-center justify-center gap-1 py-2 rounded-md bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-sm hover:scale-[1.02] transition md:text-sm text-xs"
                   >
                     <ClipboardList className="text-accent dark:text-dark-accent w-6 h-6" />
                     notes
@@ -264,7 +264,7 @@ const OverviewPage = () => {
 
         {/* 🔹 Recent Timeline Section */}
         <div className="mt-10 card">
-          <h2 className="text-2xl font-semibold text-light-text dark:text-dark-text mb-4 ">
+          <h2 className="md:text-2xl text-xl font-semibold text-light-text dark:text-dark-text mb-4 ">
             Recent Activity
           </h2>
           <div className="space-y-4 max-h-96 overflow-y-auto  p-2">

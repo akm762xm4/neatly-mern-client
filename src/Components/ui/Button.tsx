@@ -19,7 +19,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          "px-4 py-2 text-sm font-medium rounded-md transition disabled:opacity-50",
+          "px-4 py-2 md:text-sm text-xs font-medium rounded-md transition disabled:opacity-50",
           variants[variant],
           className
         )}

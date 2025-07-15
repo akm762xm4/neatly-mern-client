@@ -1,22 +1,37 @@
-// components/Sidebar.tsx
-import { FileText, CheckSquare, Menu, X } from "lucide-react";
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Modal } from "./Modal";
+import { FileText, CheckSquare, Menu, X, LayoutDashboard } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { NowBar } from "./Layout/NowBar";
-import { showToast } from "./ui/Toast";
+import Logo from "../assets/Neatly_Logo.png";
 
 export const Sidebar = () => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLogoutConfirmOpen(false);
-    showToast.success("Logged out successfully");
-    navigate("/auth", { replace: true });
-  };
+  // Collapse on route change (mobile only)
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setOpen(false);
+    }
+  }, [location]);
+
+  // Collapse on outside click (mobile only)
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        open &&
+        window.innerWidth < 768 &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
   const NavItem = ({
     to,
@@ -56,23 +71,24 @@ export const Sidebar = () => {
 
       {/* Sidebar Container */}
       <aside
+        ref={sidebarRef}
         className={`fixed top-0 left-0 h-full w-64 bg-light-bg dark:bg-dark-bg border-r border-light-border dark:border-dark-border p-4 flex flex-col justify-between transition-transform z-40 ${
           open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
         {/* Top Section */}
-        <div>
+        <div className="md:mt-0 mt-12">
           {/* Logo */}
           <div className="flex items-center gap-2 mb-8 text-xl font-bold text-light-text dark:text-dark-text px-2">
-            <CheckSquare className="text-accent dark:text-dark-accent" />
+            <img src={Logo} alt="Logo" className="w-8 h-8" />
             <span>Neatly</span>
           </div>
-
+          <hr className="border-light-border dark:border-dark-border mb-6" />
           {/* Nav Items */}
           <nav className="flex flex-col gap-2">
             <NavItem
               to="/"
-              icon={<FileText className="w-5 h-5" />}
+              icon={<LayoutDashboard className="w-5 h-5" />}
               label="Overview"
             />
             <NavItem
@@ -88,7 +104,7 @@ export const Sidebar = () => {
           </nav>
         </div>
 
-        {/* Bottom NowBar Section */}
+        {/* NowBar Section */}
         <div className="mt-6">
           <NowBar />
           <p className="mt-2 text-center text-xs text-light-muted dark:text-dark-muted">
@@ -96,22 +112,6 @@ export const Sidebar = () => {
           </p>
         </div>
       </aside>
-
-      {/* Confirm Logout */}
-      {isLogoutConfirmOpen && (
-        <Modal
-          title="Confirm Logout"
-          isOpen={isLogoutConfirmOpen}
-          setIsOpen={setIsLogoutConfirmOpen}
-          child={
-            <p className="text-light-text dark:text-dark-text text-sm">
-              Are you sure you want to log out?
-            </p>
-          }
-          deleteHandler={handleLogout}
-          deleteButtonText="Logout"
-        />
-      )}
     </>
   );
 };
