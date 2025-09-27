@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { api } from "./server-api";
+import { api } from "./serverApi";
+
+// Configure store just for RTK Query
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
@@ -7,5 +9,3 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
 });
-
-export type RootState = ReturnType<typeof store.getState>;

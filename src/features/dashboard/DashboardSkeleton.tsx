@@ -1,6 +1,6 @@
 import Skeleton from "../../Components/ui/Skeleton";
 
-const OverviewSkeleton = () => {
+const DashboardSkeleton = () => {
   return (
     <div className="md:mt-0 mt-12 space-y-6">
       {/* Welcome Header */}
@@ -48,4 +48,4 @@ const OverviewSkeleton = () => {
   );
 };
 
-export default OverviewSkeleton;
+export default DashboardSkeleton;

@@ -3,17 +3,21 @@ import SidebarLayout from "./Components/Layout/SidebarLayout";
 import NotesList from "./features/notes/NotesList";
 import TaskList from "./features/task/TaskList";
 import AuthPage from "./Components/AuthPage";
-import OverviewPage from "./features/overview/OverviewPage";
+import DashboardPage from "./features/dashboard/DashboardPage";
 import NotFound from "./Components/NotFound";
+import ProtectedRoute from "./Components/ProtectedRoute";
 const App = () => {
   return (
     <Routes>
       <Route path="/auth" element={<AuthPage />} />
+
       <Route
         path="/"
         element={
           <SidebarLayout>
-            <OverviewPage />
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
           </SidebarLayout>
         }
       />
@@ -21,7 +25,9 @@ const App = () => {
         path="/notes"
         element={
           <SidebarLayout>
-            <NotesList />
+            <ProtectedRoute>
+              <NotesList />
+            </ProtectedRoute>
           </SidebarLayout>
         }
       />
@@ -29,7 +35,9 @@ const App = () => {
         path="/tasks"
         element={
           <SidebarLayout>
-            <TaskList />
+            <ProtectedRoute>
+              <TaskList />
+            </ProtectedRoute>
           </SidebarLayout>
         }
       />

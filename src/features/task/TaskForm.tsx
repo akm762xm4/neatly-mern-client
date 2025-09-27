@@ -68,7 +68,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({ setIsOpen, task }) => {
             {...register("title", { required: "Title is required" })}
           />
         </div>
-
         {/* Description */}
         <div className="flex flex-col gap-1">
           <label
@@ -87,7 +86,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({ setIsOpen, task }) => {
             })}
           />
         </div>
-
         {/* Priority */}
         <div className="flex flex-col gap-1">
           <label
@@ -106,7 +104,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({ setIsOpen, task }) => {
             <option value="high">High</option>
           </select>
         </div>
-
         {/* Due Date */}
         <div className="flex flex-col gap-1">
           <label
@@ -117,23 +114,23 @@ export const TaskForm: React.FC<TaskFormProps> = ({ setIsOpen, task }) => {
           </label>
           <Input type="date" id="dueDate" {...register("dueDate")} />
         </div>
-
         {/* Completion */}
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="isCompleted"
-            {...register("isCompleted")}
-            className="w-4 h-4 text-accent dark:text-dark-accent rounded"
-          />
-          <label
-            htmlFor="isCompleted"
-            className="text-sm text-light-text dark:text-dark-text"
-          >
-            Mark as {task?.isCompleted ? "Incomplete" : "Complete"}
-          </label>
-        </div>
-
+        {isEdit && (
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="isCompleted"
+              {...register("isCompleted")}
+              className="w-4 h-4 text-accent dark:text-dark-accent rounded"
+            />
+            <label
+              htmlFor="isCompleted"
+              className="text-sm text-light-text dark:text-dark-text"
+            >
+              Mark as {task?.isCompleted ? "Incomplete" : "Complete"}
+            </label>
+          </div>
+        )}
         <div className="flex justify-end">
           <Button type="submit" disabled={isSubmitting || !isDirty}>
             {isSubmitting ? "Saving..." : isEdit ? "Update Task" : "Add Task"}

@@ -1,16 +1,29 @@
 import * as React from "react";
-import quotes from "../utils/quotes";
+import { useGetQuoteQuery } from "../features/dashboard/dashboardApi";
+import Skeleton from "./ui/Skeleton";
 
 const QuoteBanner = () => {
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  const { data: quote, isLoading } = useGetQuoteQuery();
+  const parsedQuote: { text: string; author: string } = quote
+    ? JSON.parse(quote.quote as unknown as string)
+    : null;
+
+  if (!parsedQuote || isLoading || !quote) {
+    return (
+      <div className="card space-y-3 md:mb-6 mb-4">
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-4 w-1/4" />
+      </div>
+    );
+  }
 
   return (
-    <div className="mb-6 p-4 rounded-lg card border-l-4 border-accent dark:border-dark-accent">
-      <p className="md:text-lg text-md font-semibold mb-1 text-accent dark:text-dark-accent">
-        “{quote.text}”
+    <div className="md:mb-6 mb-4 md:p-4 p-3 rounded-lg card border-l-4 border-accent dark:border-dark-accent">
+      <p className="md:text-base text-sm font-semibold mb-1 text-accent dark:text-dark-accent">
+        “{parsedQuote.text}”
       </p>
       <p className="md:text-sm text-xs text-light-muted dark:text-dark-muted">
-        — {quote.author}
+        — {parsedQuote.author}
       </p>
     </div>
   );

@@ -52,9 +52,9 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             title="Toggle Complete"
           >
             {task.isCompleted ? (
-              <CheckCircle className="w-5 h-5" />
+              <CheckCircle className="md:w-6 md:h-6 w-5 h-5" />
             ) : (
-              <Circle className="w-5 h-5" />
+              <Circle className="md:w-6 md:h-6 w-5 h-5" />
             )}
           </button>
 
@@ -84,14 +84,14 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             className="text-blue-500 hover:text-blue-600"
             title="Edit Task"
           >
-            <Pencil className="w-4 h-4" />
+            <Pencil className="md:w-5 md:h-5 w-4 h-4" />
           </button>
           <button
             onClick={() => setIsAlertOpen(true)}
             className="text-red-500 hover:text-red-600"
             title="Delete Task"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="md:w-5 md:h-5 w-4 h-4" />
           </button>
         </div>
       </div>
@@ -102,9 +102,9 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
       </p>
 
       {/* Bottom: Meta Info */}
-      <div className="flex justify-between items-center mt-3 md:text-xs  text-[11px] leading-3 text-gray-500 dark:text-gray-400 ">
-        <span>Priority: {task.priority || "N/A"}</span>
-        <span className="flex items-center gap-1">
+      <div className="flex justify-between items-center mt-3  leading-3 text-gray-500 dark:text-gray-400 ">
+        <span className="text-xs">Priority: {task.priority || "N/A"}</span>
+        <span className="flex items-center gap-1 text-xs ">
           <Calendar className="w-3" />
           {format(new Date(task.createdAt), "dd MMM yyyy, hh:mm a")}
         </span>

@@ -1,7 +1,9 @@
 export interface Note {
   _id: string;
+  userId: string;
   title: string;
   text?: string;
+  summary: string;
   isPinned: boolean;
   createdAt: Date;
   updatedAt?: Date;

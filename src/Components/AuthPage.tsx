@@ -1,30 +1,29 @@
 import { useEffect, useState } from "react";
 import { Input } from "../Components/ui/Input";
-import { Eye, EyeOff, Mail, Lock, User, Sun, Moon } from "lucide-react";
+import { Mail, Lock, User, Sun, Moon } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import {
-  useSignInMutation,
-  useSignUpMutation,
-} from "../features/user/usersApi";
+import { useLoginMutation, useRegisterMutation } from "../app/serverApi";
+
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/Button";
 import { showToast } from "./ui/Toast";
 import Logo from "../assets/Neatly_Logo.png";
+import { useAuthStore } from "../app/authStore";
 
 type FormData = {
-  username: string;
+  email: string;
+  name?: string;
   password: string;
-  email?: string;
 };
 
 const AuthPage = () => {
-  const [signIn, { isLoading: isLoginLoading }] = useSignInMutation();
-  const [signUp, { isLoading: isRegisterLoading }] = useSignUpMutation();
+  const [login, { isLoading: isLoginLoading }] = useLoginMutation();
+  const [signUp, { isLoading: isRegisterLoading }] = useRegisterMutation();
   const { register, handleSubmit, reset } = useForm<FormData>();
   const navigate = useNavigate();
+  const { setCredentials } = useAuthStore();
 
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [showPassword, setShowPassword] = useState(false);
 
   const [theme, setTheme] = useState<"light" | "dark">(() =>
     localStorage.getItem("theme") === "dark" ||
@@ -37,19 +36,37 @@ const AuthPage = () => {
   const isLoading = isLogin ? isLoginLoading : isRegisterLoading;
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    if (!data.username.length || !data.password.length) {
+    console.log(data);
+
+    if (!data.email.length || !data.password.length) {
       showToast.success("Fill all the fields!");
       return;
     }
+
     try {
-      const res = await (isLogin ? signIn(data) : signUp(data)).unwrap();
-      localStorage.setItem("token", res.token);
+      if (isLogin) {
+        // For login, backend expects { email, password }
+        const res = await login({
+          email: data.email,
+          password: data.password,
+        }).unwrap();
+
+        setCredentials({ accessToken: res.accessToken, user: res.user });
+      } else {
+        // For register, backend expects { name, email, password }
+        const res = await signUp({
+          name: data.name!,
+          email: data.email!,
+          password: data.password,
+        }).unwrap();
+        setCredentials({ accessToken: res.accessToken, user: res.user });
+      }
 
       showToast.success(
         `${isLogin ? "Logged in" : "Account created"} successfully!`
       );
-
       navigate("/", { replace: true });
+      reset();
     } catch (error) {
       showToast.error(
         isLogin
@@ -86,13 +103,17 @@ const AuthPage = () => {
             onClick={handleThemeToggle}
             className="card ml-auto bg-light dark:bg-dark-bg p-3 rounded-full"
           >
-            {theme === "light" ? <Moon /> : <Sun />}
+            {theme === "light" ? (
+              <Moon className="md:w-6 md:h-6 w-5 h-5" />
+            ) : (
+              <Sun className="md:w-6 md:h-6 w-5 h-5" />
+            )}
           </button>
         </div>
 
         {/* Title */}
         <h2 className="md:text-xl text-md font-bold  text-light-text dark:text-dark-text mb-1">
-          {isLogin ? "Sign in with username" : "Create an account"}
+          {isLogin ? "Sign in with Name" : "Create an account"}
         </h2>
         <p className="md:text-md text-sm  text-light-muted dark:text-dark-muted mb-8">
           {isLogin
@@ -102,43 +123,38 @@ const AuthPage = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {!isLogin && (
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 z-20" />
-              <Input
-                id="username"
-                placeholder="Enter email"
-                className="pl-10"
-                {...register("email")}
-              />
-            </div>
-          )}
           <div className="relative">
-            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 z-20" />
+            <Mail className="md:w-6 md:h-6 w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 z-20" />
             <Input
-              id="username"
-              placeholder="Enter username"
+              id="email"
+              type="email"
+              placeholder="Enter email"
               className="pl-10"
-              {...register("username")}
+              {...register("email")}
             />
           </div>
 
+          {!isLogin && (
+            <div className="relative">
+              <User className="md:w-6 md:h-6 w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 z-20" />
+              <Input
+                id="name"
+                placeholder="Enter name"
+                className="pl-10"
+                {...register("name")}
+              />
+            </div>
+          )}
+
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 z-20" />
+            <Lock className="md:w-6 md:h-6 w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 z-20" />
             <Input
               id="password"
-              type={showPassword ? "text" : "password"}
+              type="password"
               placeholder="Enter password"
               className="pl-10 pr-10"
               {...register("password")}
             />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </button>
           </div>
 
           {/* Submit Button */}

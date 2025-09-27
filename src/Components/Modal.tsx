@@ -59,23 +59,25 @@ export const Modal: React.FC<ModalProps> = ({
             }}
             exit={{ opacity: 0, scale: 0.6, transition: { duration: 0.2 } }}
           >
-            <div className="relative flex flex-col w-full max-w-lg p-4 rounded-xl bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-card">
+            <div className="relative flex flex-col w-full max-w-3xl p-4 rounded-xl bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-card">
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-4 right-4 text-light-muted dark:text-dark-muted hover:text-light-text dark:hover:text-dark-text transition"
                 title="Close Modal"
               >
-                <AiOutlineClose size={24} />
+                <AiOutlineClose className="w-6 h-6" />
               </button>
 
               {/* Title */}
-              <h2 className="text-title md:py-4 md:px-6 px-2 py-3 md:text-2xl text-xl font-semibold">
-                {title}
-              </h2>
+              {title && (
+                <h2 className="text-title md:py-4 md:px-6 px-2 py-3 md:text-2xl text-xl font-semibold">
+                  {title}
+                </h2>
+              )}
 
               {/* Content */}
-              <div>{child}</div>
+              <div className={!title ? "pt-4" : ""}>{child}</div>
 
               {/* Delete Action */}
               {deleteHandler && (

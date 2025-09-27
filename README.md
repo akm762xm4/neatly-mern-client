@@ -42,12 +42,14 @@ Before you begin, ensure you have the following installed:
 ## ⚙️ Getting Started
 
 ### 1. Clone the Repository
+
 ```bash
 git clone <your-repository-url>
 cd notes-mern-client
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 npm install
 # or
@@ -55,6 +57,7 @@ yarn install
 ```
 
 ### 3. Set Environment Variables
+
 Create a `.env` file in the root directory and add:
 
 ```env
@@ -62,6 +65,7 @@ VITE_API_URL=https://your-backend-api-url.com/api
 ```
 
 ### 4. Start Development Server
+
 ```bash
 npm run dev
 # or
@@ -72,12 +76,12 @@ Open the app at `http://localhost:5173`
 
 ## 🔄 Available Scripts
 
-| Script            | Description                    |
-|-------------------|--------------------------------|
-| `npm run dev`     | Start development server       |
-| `npm run build`   | Build production bundle        |
-| `npm run preview` | Preview production build       |
-| `npm run lint`    | Run ESLint for code quality    |
+| Script            | Description                 |
+| ----------------- | --------------------------- |
+| `npm run dev`     | Start development server    |
+| `npm run build`   | Build production bundle     |
+| `npm run preview` | Preview production build    |
+| `npm run lint`    | Run ESLint for code quality |
 
 ## 🧱 Project Structure
 
@@ -88,7 +92,7 @@ src/
 │   └── ui/              # Inputs, Buttons, Modals, etc.
 ├── features/            # Notes, Tasks, Users (Redux logic)
 ├── layouts/             # Main layout wrappers
-├── pages/               # Page-level components (Auth, 404, Overview)
+├── pages/               # Page-level components (Auth, 404, Dashboard)
 ├── hooks/               # Custom React hooks
 ├── store/               # Zustand stores and Redux setup
 ├── types/               # TypeScript interfaces & types
@@ -119,7 +123,7 @@ src/
 ## 🧩 Components You’ll Love
 
 - `NoteForm.tsx` and `TaskForm.tsx` (combined Add/Edit forms)
-- `OverviewPage.tsx` — visually rich dashboard with analytics
+- `DashboardPage.tsx` — visually rich dashboard with analytics
 - `NoData.tsx` — elegant fallback UI with matching illustration
 - `NotFound.tsx` — 404 page with centered message and vector art
 - `Modal.tsx` — accessible and animated overlay modal

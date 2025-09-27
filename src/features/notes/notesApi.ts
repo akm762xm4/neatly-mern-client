@@ -1,4 +1,4 @@
-import { api } from "../../app/server-api";
+import { api } from "../../app/serverApi";
 import { AddNote, Note, UpdateNoteQueryProps } from ".";
 
 const notesApi = api.injectEndpoints({
@@ -21,7 +21,7 @@ const notesApi = api.injectEndpoints({
         method: "POST",
         body: note,
       }),
-      invalidatesTags: ["Note", "Overview"],
+      invalidatesTags: ["Note", "Dashboard"],
     }),
     updateNote: builder.mutation<void, UpdateNoteQueryProps>({
       query: ({ _id, ...patch }) => ({
@@ -29,7 +29,7 @@ const notesApi = api.injectEndpoints({
         method: "PATCH",
         body: patch,
       }),
-      invalidatesTags: ["Note", "Overview"],
+      invalidatesTags: ["Note", "Dashboard"],
     }),
     togglePin: builder.mutation<Note, string>({
       query: (noteId) => ({
@@ -43,7 +43,42 @@ const notesApi = api.injectEndpoints({
         url: `/api/notes/${_id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Note", "Overview"],
+      invalidatesTags: ["Note", "Dashboard"],
+    }),
+    summarizeNote: builder.mutation({
+      query: (noteId) => ({
+        url: `/api/notes/summarize`,
+        method: "POST",
+        body: { noteId },
+      }),
+    }),
+    suggestTasks: builder.mutation({
+      query: (noteId) => ({
+        url: `/api/notes/suggest-tasks`,
+        method: "POST",
+        body: { noteId },
+      }),
+    }),
+    rewriteNote: builder.mutation({
+      query: (body) => ({
+        url: `/api/notes/rewrite`,
+        method: "POST",
+        body,
+      }),
+    }),
+    qaNote: builder.mutation({
+      query: (body) => ({
+        url: `/api/notes/qa`,
+        method: "POST",
+        body,
+      }),
+    }),
+    qgNote: builder.mutation({
+      query: (noteId) => ({
+        url: `/api/notes/qg`,
+        method: "POST",
+        body: { noteId },
+      }),
     }),
   }),
 });
@@ -55,4 +90,11 @@ export const {
   useUpdateNoteMutation,
   useDeleteNoteMutation,
   useTogglePinMutation,
+  useSummarizeNoteMutation,
+  useSuggestTasksMutation,
+  useRewriteNoteMutation,
+  useQaNoteMutation,
+  useQgNoteMutation,
 } = notesApi;
+
+export default notesApi;

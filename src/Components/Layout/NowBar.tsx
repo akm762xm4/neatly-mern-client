@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Sun, Moon } from "lucide-react";
-import { useGetMeQuery } from "../../features/user/usersApi";
+import { useMeQuery } from "../../app/serverApi";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "../Modal";
 import { showToast } from "../ui/Toast";
+import { useAuthStore } from "../../app/authStore";
 
 const pills = ["profile", "theme", "logout"] as const;
 
 export const NowBar = () => {
+  const { accessToken, logout } = useAuthStore();
   const [activeIndex, setActiveIndex] = useState(0);
-  const { data: user } = useGetMeQuery();
+  const { data: user } = useMeQuery(undefined, { skip: !accessToken });
+
   const navigate = useNavigate();
   const [theme, setTheme] = useState<"light" | "dark">(() =>
     document.documentElement.classList.contains("dark") ? "dark" : "light"
@@ -23,7 +26,7 @@ export const NowBar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     setIsLogoutConfirmOpen(false);
     navigate("/auth", { replace: true });
     showToast.success("Logged out successfully");
@@ -41,10 +44,12 @@ export const NowBar = () => {
     },
   };
 
+  if (!user) return null;
+
   return (
     <>
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
-        <div className="relative w-48 h-20 overflow-hidden rounded-full card">
+        <div className="relative md:w-48 md:h-20 w-44 h-16 overflow-hidden rounded-full card">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={pill}
@@ -60,15 +65,15 @@ export const NowBar = () => {
               {pill === "profile" && (
                 <div className="flex flex-row  items-center ">
                   <img
-                    src={`https://ui-avatars.com/api/?name=${user?.username}`}
+                    src={`https://ui-avatars.com/api/?name=${user?.name}`}
                     alt="avatar"
-                    className="w-10 h-10 rounded-full mb-2"
+                    className="w-10 h-10 rounded-full"
                   />
                   <span className="flex flex-col ml-2">
                     <p className="text-sm font-medium text-light-text dark:text-dark-text mr-auto">
-                      {user?.username || "Anonymous"}
+                      {user?.name || "Anonymous"}
                     </p>
-                    <p className="text-xs text-light-muted dark:text-dark-muted">
+                    <p className="md:text-[8.5px] text-[7px] text-light-muted dark:text-dark-muted z-0">
                       {user?.email || "user@example.com"}
                     </p>
                   </span>

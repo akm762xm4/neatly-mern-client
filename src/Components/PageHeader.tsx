@@ -5,8 +5,8 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
   return (
-    <div className="mb-6 md:mt-0 mt-12">
-      <h1 className="text-2xl sm:text-3xl font-bold text-light-text dark:text-dark-text">
+    <div className="md:mb-6 mb-4 md:mt-0 mt-12">
+      <h1 className="md:text-3xl text-2xl font-bold text-light-text dark:text-dark-text">
         {title}
       </h1>
       {subtitle && (

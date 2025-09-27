@@ -9,6 +9,7 @@
 * {
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  font-size: small;
 }
 
 @layer base {
@@ -24,7 +25,7 @@
   }
   /* Card styles */
   .card {
-    @apply bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text border border-light-border dark:border-dark-border shadow-card rounded-default p-4;
+    @apply bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text border border-light-border dark:border-dark-border shadow-card rounded-default md:p-4 p-3;
   }
   .text-subtitle {
     @apply text-base text-light-muted dark:text-dark-muted;

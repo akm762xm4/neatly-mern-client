@@ -1,4 +1,4 @@
-import { useGetOverviewQuery } from "../overview/overviewApi";
+import { useGetDashboardQuery } from "./dashboardApi";
 import { format } from "date-fns";
 import { FileText, ClipboardList, Plus, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import Calendar from "react-calendar";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
 import { TaskForm } from "../task/TaskForm";
-import OverviewSkeleton from "./OverviewSkeleton";
+import DashboardSkeleton from "./DashboardSkeleton";
 import { NoteForm } from "../notes/NoteForm";
 
 const getTimelineText = (entry: any) => {
@@ -24,8 +24,8 @@ const getTimelineText = (entry: any) => {
   }
 };
 
-const OverviewPage = () => {
-  const { data, isLoading, error } = useGetOverviewQuery();
+const DashboardPage = () => {
+  const { data, isLoading, error } = useGetDashboardQuery();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
@@ -39,7 +39,7 @@ const OverviewPage = () => {
   );
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    const timer = setInterval(() => setCurrentTime(new Date()), 59000);
     return () => clearInterval(timer);
   }, []);
 
@@ -49,7 +49,7 @@ const OverviewPage = () => {
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
-  if (isLoading) return <OverviewSkeleton />;
+  if (isLoading) return <DashboardSkeleton />;
   if (error)
     return <div className="text-red-500 px-4">Something went wrong!</div>;
 
@@ -58,7 +58,7 @@ const OverviewPage = () => {
       <div className="flex items-center justify-between gap-4 px-1 py-2 mb-4 md:mt-0 mt-12">
         <div>
           <h1 className="text-2xl font-bold text-light-text dark:text-dark-text">
-            Welcome back, {data?.user?.username || "Guest"} 👋
+            Welcome back, {data?.user?.name || "Guest"}
           </h1>
           <p className="text-sm text-light-muted dark:text-dark-muted">
             {format(currentTime, "eeee, dd MMM yyyy • hh:mm a")}
@@ -66,7 +66,7 @@ const OverviewPage = () => {
         </div>
 
         <img
-          src={`https://ui-avatars.com/api/?name=${data?.user?.username}`}
+          src={`https://ui-avatars.com/api/?name=${data?.user?.name}`}
           alt="avatar"
           className="w-10 h-10 rounded-full"
         />
@@ -305,4 +305,4 @@ const OverviewPage = () => {
   );
 };
 
-export default OverviewPage;
+export default DashboardPage;

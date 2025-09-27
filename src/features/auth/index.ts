@@ -1,22 +1,22 @@
 export interface SignupCredentials {
-  username: string;
+  name: string;
   password: string;
   email?: string;
 }
 
 export interface LoginCredentials {
-  username: string;
+  name: string;
   password: string;
 }
 
 export interface User {
   _id: string;
-  username: string;
+  name: string;
   email: string;
 }
 export interface SignUpAndLogin {
   _id: string;
   email: string;
-  username: string;
+  name: string;
   token: string;
 }

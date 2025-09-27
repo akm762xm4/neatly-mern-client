@@ -1,4 +1,4 @@
-import { api } from "../../app/server-api";
+import { api } from "../../app/serverApi";
 
 export interface Task {
   _id: string;
@@ -27,7 +27,7 @@ export const tasksApi = api.injectEndpoints({
         method: "POST",
         body: newTask,
       }),
-      invalidatesTags: ["Task", "Overview"],
+      invalidatesTags: ["Task", "Dashboard"],
     }),
 
     updateTask: builder.mutation<Task, { id: string; data: Partial<Task> }>({
@@ -36,7 +36,7 @@ export const tasksApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["Task", "Overview"],
+      invalidatesTags: ["Task", "Dashboard"],
     }),
 
     deleteTask: builder.mutation<{ message: string }, string>({
@@ -44,7 +44,7 @@ export const tasksApi = api.injectEndpoints({
         url: `/api/tasks/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Task", "Overview"],
+      invalidatesTags: ["Task", "Dashboard"],
     }),
 
     toggleComplete: builder.mutation<Task, string>({
@@ -52,7 +52,7 @@ export const tasksApi = api.injectEndpoints({
         url: `/api/tasks/${id}/toggle`,
         method: "PATCH",
       }),
-      invalidatesTags: ["Task", "Overview"],
+      invalidatesTags: ["Task", "Dashboard"],
     }),
   }),
 });
@@ -64,3 +64,5 @@ export const {
   useDeleteTaskMutation,
   useToggleCompleteMutation,
 } = tasksApi;
+
+export default tasksApi;

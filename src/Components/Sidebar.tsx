@@ -45,7 +45,7 @@ export const Sidebar = () => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center gap-3 px-4 py-2 rounded-md text-sm font-medium transition ${
+        `flex items-center md:gap-3 gap-2 px-4 py-2 rounded-md text-sm font-medium transition ${
           isActive
             ? "bg-accent/10 text-accent dark:text-dark-accent"
             : "hover:bg-light-card dark:hover:bg-dark-card text-light-muted dark:text-dark-muted"
@@ -89,7 +89,7 @@ export const Sidebar = () => {
             <NavItem
               to="/"
               icon={<LayoutDashboard className="w-5 h-5" />}
-              label="Overview"
+              label="Dashboard"
             />
             <NavItem
               to="/notes"
@@ -107,7 +107,7 @@ export const Sidebar = () => {
         {/* NowBar Section */}
         <div className="mt-6">
           <NowBar />
-          <p className="mt-2 text-center text-xs text-light-muted dark:text-dark-muted">
+          <p className="mt-2 text-center md:text-xs text-[10px] text-light-muted dark:text-dark-muted">
             Swipe up or down to switch options
           </p>
         </div>

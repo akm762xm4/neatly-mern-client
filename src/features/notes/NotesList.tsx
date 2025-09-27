@@ -50,7 +50,7 @@ const NotesList = () => {
       <QuoteBanner />
 
       {/* 🔍 Search & Sort Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+      <div className="flex flex-row items-center justify-between md:gap-3 gap-2 md:mb-6 mb-4">
         <div className="flex-1">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5 z-10" />
@@ -83,7 +83,7 @@ const NotesList = () => {
 
       {/* ⏳ Skeleton Loader */}
       {(isLoading || isFetching) && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-8">
+        <div className="grid  md:grid-cols-3 grid-cols-1 md:gap-4 gap-3 md:pb-8 pb-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <SkeletonNoteCard key={i} />
           ))}
@@ -95,7 +95,7 @@ const NotesList = () => {
       )}
 
       {/* 🗂 Notes Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-8">
+      <div className="grid md:grid-cols-3 grid-cols-1 md:gap-4 gap-3 md:pb-8 pb-6">
         {sortedNotes?.map((note) => (
           <NoteItem key={note._id} note={note} />
         ))}
