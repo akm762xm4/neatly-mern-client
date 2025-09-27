@@ -7,8 +7,8 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { useAuthStore } from "./authStore";
 
-// const baseUrl = "https://neatly-mern-server.vercel.app/";
-const baseUrl = "http://localhost:5000";
+const baseUrl = "https://neatly-mern-server.vercel.app";
+// const baseUrl = "http://localhost:5000";
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl,
