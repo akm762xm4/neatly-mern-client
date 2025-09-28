@@ -192,7 +192,7 @@ const DashboardPage = () => {
                   ? "bg-accent hover:bg-light-bg hover:dark:bg-dark-bg text-white transition rounded-full"
                   : "hover:bg-light dark:hover:bg-dark-bg transition rounded-full";
               }}
-              className="w-full bg-transparent text-sm "
+              className="calendar md:w-full w-[17rem] md:text-sm text-xs mx-auto"
             />
           </div>
 
@@ -269,8 +269,8 @@ const DashboardPage = () => {
           </h2>
           <div className="space-y-4 max-h-96 overflow-y-auto  p-2">
             {data?.recentTimeline?.map((entry: any, index: number) => (
-              <div key={index} className="relative pl-6 card">
-                <div className="absolute -left-2 -top-2 w-5 h-5 bg-accent dark:bg-dark-accent rounded-full"></div>
+              <div key={index} className="relative md:pl-6 pl-3 card">
+                <div className="absolute -left-1.5 -top-1.5 md:w-5 md:h-5 w-4 h-4 bg-accent dark:bg-dark-accent rounded-full"></div>
                 <div>
                   <p className="text-sm text-light-text dark:text-dark-text">
                     {getTimelineText(entry)}

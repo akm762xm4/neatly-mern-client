@@ -70,8 +70,10 @@ export const Note = ({ note }: NoteProps) => {
 
       if (response.tasks) {
         try {
-          // Parse the JSON string from response.tasks
-          const tasksArray = JSON.parse(response.tasks);
+          const jsonString = response.tasks
+            .replace(/.*\[/, "[")
+            .replace(/\].*/, "]");
+          const tasksArray = JSON.parse(jsonString);
           setAiResponse(JSON.stringify(tasksArray));
         } catch (e) {
           console.error("Failed to parse tasks", e);
@@ -131,7 +133,10 @@ export const Note = ({ note }: NoteProps) => {
       }).unwrap();
 
       // Handle array of Q&A pairs
-      const qnaArray = JSON.parse(response.answer);
+      const jsonString = response.answer
+        .replace(/.*\[/, "[")
+        .replace(/\].*/, "]");
+      const qnaArray = JSON.parse(jsonString);
       setAiResponse(JSON.stringify(qnaArray));
     } catch (error) {
       console.error("Error with Q&A:", error);
@@ -233,22 +238,22 @@ export const Note = ({ note }: NoteProps) => {
   }, [activeFeature]);
 
   return (
-    <div className="flex flex-col gap-4 font-['DM_Sans']">
+    <div className="flex flex-col md:gap-4 gap-3">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div className="flex md:flex-col flex-row md:items-start items-center justify-between gap-2">
         <div>
-          <h2 className="text-2xl font-semibold">{note.title}</h2>
-          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mt-1">
-            <span className="flex items-center gap-1">
+          <h2 className="md:text-2xl text-xl font-semibold">{note.title}</h2>
+          <div className="flex flex-wrap md:gap-4 gap-3 text-muted-foreground mt-1">
+            <span className="md:text-xl text-sm flex items-center gap-1">
               <FileText className="w-3 h-3" /> {note?.text?.split(" ").length}{" "}
               words
             </span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 md:text-xl text-sm">
               <Calendar className="w-3 h-3" />{" "}
               {new Date(note.createdAt).toLocaleDateString()}
             </span>
             {note.isPinned && (
-              <span className="flex items-center gap-1 text-yellow-400">
+              <span className="flex items-center gap-1 text-yellow-400 md:text-xl text-sm">
                 <PiPushPinSimple className="w-3 h-3" /> Pinned
               </span>
             )}
@@ -257,14 +262,14 @@ export const Note = ({ note }: NoteProps) => {
       </div>
 
       {/* Note Content Section */}
-      <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-md shadow-inner max-h-64 overflow-y-auto border border-white/10">
-        <p className="whitespace-pre-line text-base leading-relaxed">
+      <div className="md:p-5 p-3 rounded-2xl bg-white/5 backdrop-blur-md inset-shadow-lg inset-shadow-black max-h-52 overflow-y-auto border border-white/10">
+        <p className="whitespace-pre-line md:text-base text-sm leading-relaxed">
           {note.text}
         </p>
       </div>
 
       {/* AI Actions Section */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <div className="grid md:grid-cols-5 grid-cols-2 md:gap-3 gap-2">
         <AiButton
           onClick={handleSummarize}
           colors="from-purple-500/40 via-yellow-400/40 to-blue-500/40"
@@ -272,7 +277,7 @@ export const Note = ({ note }: NoteProps) => {
           disabled={isLoading || activeFeature === "summarize"}
         >
           <FileText className="w-4 h-4" />
-          <span className="text-sm">Summarize</span>
+          <span className="md:text-sm text-xs">Summarize</span>
         </AiButton>
 
         <AiButton
@@ -282,7 +287,7 @@ export const Note = ({ note }: NoteProps) => {
           disabled={isLoading || activeFeature === "tasks"}
         >
           <CheckSquare className="w-4 h-4" />
-          <span className="text-sm">Tasks</span>
+          <span className="md:text-sm text-xs">Tasks</span>
         </AiButton>
 
         <AiButton
@@ -292,7 +297,7 @@ export const Note = ({ note }: NoteProps) => {
           colors="from-purple-500/40 via-green-400/40 to-blue-500/40"
         >
           <FileEdit className="w-4 h-4" />
-          <span className="text-sm">Rewrite</span>
+          <span className="md:text-sm text-xs">Rewrite</span>
         </AiButton>
 
         <AiButton
@@ -302,7 +307,7 @@ export const Note = ({ note }: NoteProps) => {
           disabled={isLoading || activeFeature === "qa"}
         >
           <MessageSquareQuestion className="w-4 h-4" />
-          <span className="text-sm">Q&A</span>
+          <span className="md:text-sm text-xs">Q&A</span>
         </AiButton>
 
         <AiButton
@@ -312,7 +317,7 @@ export const Note = ({ note }: NoteProps) => {
           disabled={isLoading || activeFeature === "questions"}
         >
           <HelpCircle className="w-4 h-4" />
-          <span className="text-sm">Questions</span>
+          <span className="md:text-sm text-xs">Questions</span>
         </AiButton>
       </div>
 
@@ -329,7 +334,7 @@ export const Note = ({ note }: NoteProps) => {
                   <button
                     key={style}
                     onClick={() => setRewriteStyle(style.toLowerCase())}
-                    className={`py-1 px-3 text-sm rounded-full border disabled:cursor-not-allowed
+                    className={`py-1 px-3 md:text-sm text-xs rounded-full border disabled:cursor-not-allowed
                       
                       ${
                         rewriteStyle === style.toLowerCase()
@@ -411,7 +416,7 @@ export const Note = ({ note }: NoteProps) => {
 
       {/* AI Response Section */}
       {aiResponse && (
-        <div className="relative p-5 rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 shadow-lg max-h-72 overflow-y-auto">
+        <div className="relative p-5 rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 shadow-lg max-h-60 overflow-y-auto">
           <div className="absolute top-2 right-2 flex gap-1">
             <button
               title="Copy"
@@ -453,18 +458,18 @@ export const Note = ({ note }: NoteProps) => {
               </ul>
             </div>
           ) : activeFeature === "qa" ? (
-            <div className="pt-4 space-y-4">
+            <div className="pt-5 md:space-y-4 space-y-3">
               {qaPairs.map((qaItem, index) => {
                 return (
                   <div
                     key={index}
-                    className="p-3 rounded-lg bg-white/5 border border-purple-500/20"
+                    className="md:p-3 p-2 rounded-lg bg-white/5 border border-purple-500/20"
                   >
-                    <p className="font-medium mb-2">
+                    <p className="font-medium mb-2 md:text-base text-sm">
                       {index + 1}.{qaItem.question} ?
                     </p>
 
-                    <p className=" text-sm text-gray-500 dark:text-gray-400">
+                    <p className=" md:text-sm text-xs text-gray-500 dark:text-gray-400">
                       {qaItem.answer}
                     </p>
                   </div>

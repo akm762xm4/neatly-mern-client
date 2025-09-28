@@ -9,10 +9,14 @@
 * {
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
-  font-size: small;
+  font-size: 15px;
+  /* font-size: small; */
 }
 
 @layer base {
+  .calendar {
+    @apply bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text border border-light-border dark:border-dark-border shadow-card rounded-default;
+  }
   .btn-primary {
     @apply btn bg-accent text-white hover:bg-blue-800 dark:bg-dark-accent dark:hover:bg-sky-500 dark:text-dark-bg;
   }
